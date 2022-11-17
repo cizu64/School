@@ -33,7 +33,7 @@ namespace School.Domain.Entities.StudentAggregate
         {
             if (!StudentCourses.Any(s => s.StudentId == studentId && s.CourseId == courseId))
             {
-                //add
+                //add to the collection
                 _studentCourses.Add(new StudentCourse
                 {
                     CourseId = courseId,

@@ -17,9 +17,9 @@ namespace School.Domain.Services
 
         public async Task EnrollCourse(int studentId, int courseId)
         {
-            var student = await _studentRepository.GetByIdAsync(studentId);
-            student.EnrollCourse(student.Id, courseId);
-            await _studentRepository.UpdateAsync(student);
+            var stud = await _studentRepository.GetByIdAsync(studentId);
+            stud.EnrollCourse(stud.Id, courseId);
+            await _studentRepository.UpdateAsync(stud);
         }
     }
 }

@@ -8,6 +8,6 @@ namespace School.Domain.Entities
     public class Department : BaseEntity, IAggregateRoot
     {
         public string Name { get; set; }
-        public bool IsActive { get; set; }
+        public bool IsActive { get; set; } = true;
     }
 }

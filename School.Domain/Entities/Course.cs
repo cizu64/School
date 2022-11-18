@@ -9,6 +9,7 @@ namespace School.Domain.Entities
     {
         public int DepartmentId { get; set; }
         public string Name { get; set; }
-        public bool IsActive { get; set; }
+        public bool IsActive { get; set; } = true;
+        public Department Department { get; set; }
     }
 }

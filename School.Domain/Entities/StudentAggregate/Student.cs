@@ -11,10 +11,12 @@ namespace School.Domain.Entities.StudentAggregate
         {
             //Needed for EF
         }
-        public Student(string firstname,string lastname, Address studentAddress, List<StudentCourse> studentCourses)
+        public Student(string firstname,string lastname,int age,string gender, Address studentAddress, List<StudentCourse> studentCourses)
         {
             Firstname = firstname;
             Lastname = lastname;
+            Age = age;
+            Gender = gender;
             StudentAddress = studentAddress;
             _studentCourses = studentCourses;
         }

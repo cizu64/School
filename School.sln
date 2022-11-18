@@ -13,7 +13,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{35709C
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{DFBC43B9-26A6-430F-80D2-0EBB385A22DA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "School.Domain", "School.Domain\School.Domain.csproj", "{7BBBCBC1-6875-44D3-BAB4-5A81C45E524F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "School.Domain", "School.Domain\School.Domain.csproj", "{7BBBCBC1-6875-44D3-BAB4-5A81C45E524F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "School.Infrastructure", "School.Infrastructure\School.Infrastructure.csproj", "{54708536-0814-4F32-984B-A7701704F7F6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,6 +27,10 @@ Global
 		{7BBBCBC1-6875-44D3-BAB4-5A81C45E524F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7BBBCBC1-6875-44D3-BAB4-5A81C45E524F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7BBBCBC1-6875-44D3-BAB4-5A81C45E524F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{54708536-0814-4F32-984B-A7701704F7F6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{54708536-0814-4F32-984B-A7701704F7F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{54708536-0814-4F32-984B-A7701704F7F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{54708536-0814-4F32-984B-A7701704F7F6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -34,6 +40,7 @@ Global
 		{35709C18-F6C6-469B-A2A5-E320263AC821} = {2F8D6A9B-49B5-4EF2-BA1B-BAF34B55583A}
 		{DFBC43B9-26A6-430F-80D2-0EBB385A22DA} = {2F8D6A9B-49B5-4EF2-BA1B-BAF34B55583A}
 		{7BBBCBC1-6875-44D3-BAB4-5A81C45E524F} = {35709C18-F6C6-469B-A2A5-E320263AC821}
+		{54708536-0814-4F32-984B-A7701704F7F6} = {8DFBCE2A-017E-402E-80F3-A5A4A78A6102}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4BADB7E0-E410-4469-AA81-A5E09E9E3468}

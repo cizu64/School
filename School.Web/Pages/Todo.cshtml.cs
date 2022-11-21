@@ -22,7 +22,13 @@ namespace School.Web.Pages
         public TodoVM Todo { get; set; }
         public async Task<IActionResult> OnGetAsync(int pageSize = 10, int pageIndex = 0)
         {
-            Todo = await todo.GetTodos(Request.Cookies["token"], pageIndex, pageSize);
+            var token = Request.Cookies["token"];
+            var auth = await new CheckAuth(configuration).IsAuth(Request);
+            if (!auth)
+            {
+                return RedirectToPage("./Login");
+            }
+            Todo = await todo.GetTodos(token, pageIndex, pageSize);
             return Page();
         }
        

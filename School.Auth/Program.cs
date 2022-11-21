@@ -13,7 +13,7 @@ string allowedOrigins = "origins";
 
 builder.Services.AddCors(option =>
 {
-    option.AddPolicy(allowedOrigins, p => p.WithOrigins("https://localhost:44324", "http://localhost:17007").AllowAnyHeader().AllowAnyMethod());
+    option.AddPolicy(allowedOrigins, p => p.WithOrigins("https://localhost:44318", "http://localhost:13369").AllowAnyHeader().AllowAnyMethod());
 });
 
 // Add services to the container.

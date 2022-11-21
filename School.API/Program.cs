@@ -15,7 +15,6 @@ builder.Services.AddCors(option =>
 {
     option.AddPolicy(allowedOrigins, p => p.WithOrigins("https://localhost:44318", "http://localhost:13369").AllowAnyHeader().AllowAnyMethod());
 });
-
 // Add services to the container.
 
 builder.Services.AddControllers();
@@ -95,3 +94,4 @@ async Task SeedAsync(WebApplication host)
         }
     }
 }
+

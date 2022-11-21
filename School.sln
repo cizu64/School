@@ -17,11 +17,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "School.Domain", "School.Dom
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "School.Infrastructure", "School.Infrastructure\School.Infrastructure.csproj", "{54708536-0814-4F32-984B-A7701704F7F6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "School.API", "School.API\School.API.csproj", "{6813F02A-70B3-4280-99D0-D54D45D0E8F6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "School.API", "School.API\School.API.csproj", "{6813F02A-70B3-4280-99D0-D54D45D0E8F6}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{FF6F3FA4-3234-4836-921E-A29AA34FEF39}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "School.Web", "School.Web\School.Web.csproj", "{AF7B12D3-B34A-4E88-B9ED-3CA787CC9D7E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "School.Web", "School.Web\School.Web.csproj", "{AF7B12D3-B34A-4E88-B9ED-3CA787CC9D7E}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "School.Auth", "School.Auth\School.Auth.csproj", "{F3232CCC-885F-4ACB-BF33-03E5E2601462}"
 EndProject

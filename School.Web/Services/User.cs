@@ -16,7 +16,7 @@ namespace School.Web.Services
             _client.BaseAddress = new Uri(this.configuration["AuthUrl"]);
             _client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue(RestClient.ApplicationJson));
         }
-
+    
         public async Task<int?> GetUserIdFromToken(string token)
         {
             var resourcePath = $"/api/v1/auth/usid?token={token}";
@@ -29,6 +29,7 @@ namespace School.Web.Services
             }
             return null;
         }
-      
+
+
     }
 }

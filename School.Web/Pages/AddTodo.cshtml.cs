@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using School.Web.DTO;
@@ -21,17 +22,28 @@ namespace School.Web.Pages
             this.configuration = configuration;
             todo = new Todo(this.client, this.configuration);
         }
-        public void OnGet()
+        public async Task<IActionResult> OnGetAsync()
         {
-
+            var token = Request.Cookies["token"];
+            var auth = await new CheckAuth(configuration).IsAuth(Request);
+            if (!auth)
+            {
+                return RedirectToPage("./Login");
+            }
+            return Page();
         }
         public async Task<IActionResult> OnPostAsync(TodoDTO model)
         {
+            var token = Request.Cookies["token"];
+            var auth = await new CheckAuth(configuration).IsAuth(Request);
+            if (!auth)
+            {
+                return RedirectToPage("./Login");
+            }
             if (!ModelState.IsValid)
             {
                 return Page();
             }
-            model.StudentId = int.Parse(Request.Cookies["studentId"]);
             dynamic result = await todo.AddTodo(Request.Cookies["token"],model);
             if (result!=null&&result.succeeded == true)
             {

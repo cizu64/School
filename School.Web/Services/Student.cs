@@ -45,7 +45,7 @@ namespace School.Web.Services
                 Password = password
             };
             var serialize = JsonConvert.SerializeObject(data);
-            var content = new StringContent(serialize);
+            var content = new StringContent(serialize,Encoding.UTF8,RestClient.ApplicationJson);
             var response = await _client.PostAsync(content);
             if (response.IsSuccessStatusCode)
             {

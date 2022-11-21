@@ -1,4 +1,3 @@
-using School.Web.Filter;
 using School.Web.Helpers;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -7,10 +6,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddHttpClient();
 builder.Services.AddScoped<IRestClient, RestClient>();
 
-builder.Services.AddRazorPages().AddMvcOptions(options =>
-{
-    options.Filters.Add(new PageFilter(builder.Configuration));
-});
+builder.Services.AddRazorPages();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

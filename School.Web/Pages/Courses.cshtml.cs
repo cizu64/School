@@ -12,12 +12,14 @@ namespace School.Web.Pages
         private readonly IConfiguration configuration;
         private readonly Course course;
         private readonly Student student;
+        private readonly User user;
         public CoursesModel(IRestClient client, IConfiguration configuration)
         {
             this.client = client;
             this.configuration = configuration;
             course = new Course(this.client, this.configuration);
             student = new Student(this.client, this.configuration);
+            user = new User(this.configuration); 
             ApiUrl = this.configuration["ApiUrl"];
         }
         [BindProperty]
@@ -26,8 +28,15 @@ namespace School.Web.Pages
         public CourseVM Course { get; set; }
         public async Task<IActionResult> OnGetAsync(int pageSize=10, int pageIndex=0)
         {
-            Course = await course.GetCourses(Request.Cookies["token"],pageIndex, pageSize);
-            ViewData["StudentCourse"] = await student.GetStudent(Request.Cookies["token"]);
+            var token = Request.Cookies["token"];
+            var auth = await new CheckAuth(configuration).IsAuth(Request);
+            if (!auth)
+            {
+                return RedirectToPage("./Login");
+            }          
+            Course = await course.GetCourses(token,pageIndex, pageSize);
+            ViewData["StudentCourse"] = await student.GetStudent(token);
+            ViewData["token"] = token;
             return Page();
         }
     }

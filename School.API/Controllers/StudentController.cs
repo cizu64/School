@@ -117,8 +117,7 @@ namespace School.API.Controllers
                         Succeeded = false
                     });
                 }
-                course.StudentId = studentId.Value;
-                await studentService.EnrollCourse(course.StudentId, course.CourseId);
+                await studentService.EnrollCourse(studentId.Value,course.CourseId);
                 return Ok(new ApiResult
                 {
                     Message = "Course enrolled successfully",

@@ -65,7 +65,7 @@ namespace School.Auth.Services
             {
                     new Claim(ClaimTypes.Name, userId.ToString()),
             });
-            var result = auth.CreateToken(claims, _configuration["jwt:issuer"], _configuration["jwt:audience"], 45);
+            var result = auth.CreateToken(claims, _configuration["jwt:issuer"], _configuration["jwt:audience"]);
             return result;
         }
 

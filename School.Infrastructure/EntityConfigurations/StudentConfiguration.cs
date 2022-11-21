@@ -16,7 +16,28 @@ namespace School.Infrastructure.EntityConfigurations
             var navigation = builder.Metadata.FindNavigation(nameof(Student.StudentCourses));
             navigation.SetPropertyAccessMode(PropertyAccessMode.Field);
 
-            builder.OwnsOne(a => a.StudentAddress);
+            builder.OwnsOne(s => s.StudentAddress, a =>
+            {
+                a.WithOwner();
+
+                a.Property(a => a.City)
+                .HasColumnName("City")
+                    .IsRequired();
+
+                a.Property(a => a.Street)
+                .HasColumnName("Street")
+                    .IsRequired();
+
+                a.Property(a => a.State)
+                .HasColumnName("State")
+                    .HasMaxLength(60);
+
+                a.Property(a => a.Country)
+                .HasColumnName("Country")
+                    .IsRequired();
+            });
+
+            builder.Navigation(x => x.StudentAddress).IsRequired();
         }
     }
 }

@@ -9,9 +9,8 @@ namespace School.Domain.Entities.StudentAggregate
     {
         private Student()
         {
-            //Needed for EF
         }
-        public Student(string firstname,string lastname,int age,string gender, Address studentAddress, List<StudentCourse> studentCourses)
+        public Student(string email, string password,string firstname,string lastname,int age,string gender, Address studentAddress, List<StudentCourse> studentCourses)
         {
             Firstname = firstname;
             Lastname = lastname;
@@ -19,10 +18,18 @@ namespace School.Domain.Entities.StudentAggregate
             Gender = gender;
             StudentAddress = studentAddress;
             _studentCourses = studentCourses;
+            Email = email;
+            Password = password;
+        }
+        public Student(string email, string password)
+        {
+            Email = email;
+            Password = password;
         }
         public string Firstname { get; private set; }
         public string Lastname { get; private set; }
-
+        public string Email { get; private set; }
+        public string Password { get; private set; }
         public int Age { get; private set; }
         public string Gender { get; private set; }
         public Address StudentAddress { get; private set; }
@@ -44,6 +51,10 @@ namespace School.Domain.Entities.StudentAggregate
                 return;
             }
             //update (do nothing)
+        }
+        public bool HasEnrolled(int studentId, int courseId)
+        {
+            return StudentCourses.Any(s => s.StudentId == studentId && s.CourseId == courseId);
         }
 
     }

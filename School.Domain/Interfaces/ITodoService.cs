@@ -5,6 +5,6 @@ namespace School.Domain.Interfaces
 {
     public interface ITodoService
     {
-        Task CompleteTodo(int studentId, DateTime dateCompleted);
+        Task CompleteTodo(int todoId, int studentId, DateTime dateCompleted);
     }
 }

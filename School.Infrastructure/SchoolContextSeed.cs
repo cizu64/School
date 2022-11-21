@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
 using School.Domain.Entities;
 using School.Domain.Entities.StudentAggregate;
+using School.Infrastructure.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -50,14 +51,14 @@ namespace School.Infrastructure
                 }
                 if (!schoolContext.Students.Any())
                 {
-                    schoolContext.Students.Add(new Student("John", "Doe", 21, "Male", new Address("Berlin", "Berlin", "Berlin", "Germany"), new List<StudentCourse>()));
+                    schoolContext.Students.Add(new Student("user@user.com","password".Hash(),"John", "Doe", 21, "Male", new Address("Berlin", "Berlin", "Berlin", "Germany"), new List<StudentCourse>()));
                     await schoolContext.SaveChangesAsync();
                 }
             }
             catch (Exception ex)
             {
                 var log = loggerFactory.CreateLogger<SchoolContextSeed>();
-                log.LogError(ex.Message);
+                log.LogError(ex,ex.Message);
             }
         }
     }

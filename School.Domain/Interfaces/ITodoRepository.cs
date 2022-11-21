@@ -11,5 +11,7 @@ namespace School.Domain.Interfaces
     {
         Task<Todo> AddTodo(int studentId, string name, string desc);
         Task<IReadOnlyList<Todo>> GetTodos(int studentId);
+        Task<Todo> GetTodo(int todoId);
+
     }
 }

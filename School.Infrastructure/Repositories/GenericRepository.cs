@@ -26,14 +26,9 @@ namespace School.Infrastructure.Repositories
             return entity;
         }
 
-        public async Task<bool> AnyAsync(Expression<Func<T, bool>> predicate)
+        public async Task<bool> AnyAsync(Expression<Func<T, bool>> predicate, string include)
         {
-            return await _set.AnyAsync(predicate);
-        }
-
-        public async Task<int> CountAsync(Expression<Func<T, bool>> predicate)
-        {
-            return await _set.CountAsync(predicate);
+            return await _set.Include(include).AnyAsync(predicate);
         }
 
         public async Task DeleteAsync(T entity)
@@ -42,23 +37,47 @@ namespace School.Infrastructure.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task<T> Get(Expression<Func<T, bool>> predicate)
+        public async Task<T> Get(Expression<Func<T, bool>> predicate, params string[] includes)
         {
-            return await _set.FirstOrDefaultAsync(predicate);
-        }
-
-        public async Task<IReadOnlyList<T>> GetAll(Expression<Func<T, bool>> predicate)
-        {
-            if (predicate != null)
+            var data = await _set.FirstOrDefaultAsync(predicate);
+            if (includes.Any())
             {
-                return await _set.Where(predicate).ToListAsync();
+                data = Include(includes).FirstOrDefault();
             }
-            return await _set.ToListAsync();
+            return data;
         }
 
-        public async Task<T> GetByIdAsync(int Id)
+        public async Task<IReadOnlyList<T>> GetAll(Expression<Func<T, bool>> predicate = null, params string[] includes)
         {
-           return await _set.FindAsync(Id);
+
+            var data = predicate == null ? _set : _set.Where(predicate);
+            if (includes.Any())
+            {
+                data = Include(includes).AsQueryable();
+            }
+            return await data.ToListAsync();
+        }
+
+        public IEnumerable<T> Include(params string[] includes)
+        {
+            IEnumerable<T> query = null;
+            foreach (var include in includes)
+            {
+                query = _set.Include(include);
+            }
+
+            return query ?? _set;
+        }
+
+
+        public async Task<T> GetByIdAsync(int Id, params string[] includes)
+        {
+            var data = await _set.FindAsync(Id);
+            if (includes.Any())
+            {
+                data = Include(includes).FirstOrDefault();
+            }
+            return data;
         }
 
         public async Task UpdateAsync(T entity)

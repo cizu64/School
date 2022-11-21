@@ -14,6 +14,7 @@ namespace School.Infrastructure.EntityConfigurations
     {
         public void Configure(EntityTypeBuilder<Todo> builder)
         {
+            builder.Property(t => t.StudentId).IsRequired();
             builder.Property(t => t.Name).HasMaxLength(20).IsRequired();
             builder.Property(t => t.Description).HasMaxLength(200).IsRequired();
         }

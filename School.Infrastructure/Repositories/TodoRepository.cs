@@ -23,8 +23,15 @@ namespace School.Infrastructure.Repositories
 
         public async Task<IReadOnlyList<Todo>> GetTodos(int studentId)
         {
-            var studentTodos = await GetTodos(studentId);
+            var studentTodos = await GetAll(t => t.StudentId == studentId);
             return studentTodos;
         }
+
+        public async Task<Todo> GetTodo(int todoId)
+        {
+            var todo = await Get(t => t.Id == todoId);
+            return todo;
+        }
+
     }
 }

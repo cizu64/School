@@ -16,13 +16,13 @@ namespace School.Infrastructure
         }
 
         public DbSet<Student> Students { get; set; }
-        public DbSet<Address> Addresses { get; set; }
         public DbSet<Course> Courses { get; set; }
         public DbSet<Todo> Todos { get; set; }
         public DbSet<Department> Departments { get; set; }
         public DbSet<StudentCourse> StudentCourses { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
         }
     }

@@ -7,19 +7,21 @@ using System.Threading.Tasks;
 
 namespace School.Domain.Services
 {
-    public class StudentServices: IStudentService
+    public class StudentService: IStudentService
     {
         private readonly IGenericRepository<Student> _studentRepository;
-        public StudentServices(IGenericRepository<Student> studentRepository)
+
+        public StudentService(IGenericRepository<Student> studentRepository)
         {
             _studentRepository = studentRepository;
         }
 
         public async Task EnrollCourse(int studentId, int courseId)
         {
-            var stud = await _studentRepository.GetByIdAsync(studentId);
+            var stud = await _studentRepository.GetByIdAsync(studentId,"StudentCourses");
             stud.EnrollCourse(stud.Id, courseId);
             await _studentRepository.UpdateAsync(stud);
         }
+      
     }
 }

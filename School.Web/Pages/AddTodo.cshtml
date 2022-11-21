@@ -1,0 +1,34 @@
+﻿@page
+@model School.Web.Pages.AddTodoModel
+@{
+    ViewData["Title"] = "Add Todo";
+}
+
+<div class="col-9">
+    <p class="lead">Get organised by creating todos </p>
+    <form method="post">
+        <div class="row mt-4">
+            <input type="text" class="form-control" placeholder="Enter todo name" name="Name" />
+            <small class="">@Html.ValidationMessage("Name",htmlAttributes:new{@class = "bg-danger text-white lead"})</small>
+        </div>
+
+        <div class="row mt-4">
+            <textarea rows="10" cols="20" class="form-control" placeholder="Enter todo description" name="Description"></textarea>
+            <small class="">@Html.ValidationMessage("Description",htmlAttributes:new{@class = "bg-danger text-white lead"})</small>
+        </div>
+
+        <div class="row mt-4">
+            <input type="submit" value="Create" class="btn btn-lg btn-success" />
+        </div>
+        <div class="row mt-2">
+            @if (!string.IsNullOrEmpty(Model.ErrMsg))
+            {
+                <small class="text-dark lead alert alert-danger">@Model.ErrMsg</small>
+            }
+            else if (!string.IsNullOrEmpty(Model.SucMsg))
+            {
+                <small class="text-dark lead alert alert-success">@Model.SucMsg</small>
+            }
+        </div>
+    </form>
+</div>

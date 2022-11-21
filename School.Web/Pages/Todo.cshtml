@@ -1,0 +1,59 @@
+﻿@page
+@using School.Web.ViewModel
+@model School.Web.Pages.TodoModel
+@{
+    ViewData["Title"] = "Todos";
+}
+
+<p class="lead p-2">Click on the Add Todo button to add todos <a class="btn btn-lg btn-success" asp-page="AddTodo">Add Todo</a> </p>
+
+@{
+    var todos = Model.Todo;
+}
+
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Description</th>
+            <th scope="col">Complete</th>
+            <th scope="col">Active</th>
+            <th scope="col">Date Completed</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var todo in todos.result.data)
+        {
+            <tr>
+                <td>@todo.name</td>
+                <td>@todo.description</td>
+                <td>
+                    @if (todo.isCompleted)
+                    {
+                        <span class="material-symbols-outlined">done</span>
+                    }
+                    else
+                    {
+                        <span class="material-symbols-outlined">
+                            close
+                        </span>
+                    }
+                </td>
+                <td>  
+                    @if (todo.isActive)
+                    {
+                        <span class="material-symbols-outlined">done</span>
+                    }
+                    else
+                    {
+                        <span class="material-symbols-outlined">
+                            close
+                        </span>
+                    }</td>
+                <td>@todo.dateCompleted</td>
+            </tr>
+        }
+    </tbody>
+</table>
+

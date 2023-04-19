@@ -4,9 +4,9 @@ using School.API.DTO;
 using School.API.Helpers;
 using School.API.Service;
 using School.API.ViewModel;
-using School.Domain.Entities;
-using School.Domain.Entities.StudentAggregate;
-using School.Domain.Interfaces;
+using School.Domain.Aggregates;
+using School.Domain.Aggregates.StudentAggregate;
+using School.Domain.SeedWork;
 using System.Net;
 
 namespace School.API.Controllers

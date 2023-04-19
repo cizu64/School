@@ -4,25 +4,25 @@ using School.API.DTO;
 using School.API.Helpers;
 using School.API.Service;
 using School.API.ViewModel;
-using School.Domain.Entities;
-using School.Domain.Interfaces;
+using School.Domain.Aggregates;
+using School.Domain.SeedWork;
 using System.Net;
 
 namespace School.API.Controllers
 {
-    
+
     [Route("api/v1/[controller]")]
     [Authorize]
     public class TodoController : ControllerBase
     {
         private readonly ILogger<TodoController> _logger;
-        private readonly ITodoRepository todoRepository;
+        private readonly IGenericRepository<Todo> todoRepository;
         private readonly ITodoService todoService;
         private readonly IRestClient client;
         private readonly IConfiguration configuration;
         private readonly User user;
 
-        public TodoController(ILogger<TodoController> logger, ITodoRepository todoRepository, ITodoService todoService, IRestClient client, IConfiguration configuration)
+        public TodoController(ILogger<TodoController> logger, IGenericRepository<Todo> todoRepository, ITodoService todoService, IRestClient client, IConfiguration configuration)
         {
             _logger = logger;
             this.todoRepository = todoRepository;
@@ -48,7 +48,7 @@ namespace School.API.Controllers
                         Succeeded = false
                     });
                 }
-                var todos = await todoRepository.GetTodos(studentId.Value);
+                var todos = await todoRepository.GetAll(t=>t.StudentId==studentId.Value);
                 var paged = todos.Skip(pageSize * pageIndex).Take(pageSize);
                 int totalItem = todos.Count;
                 var model = new PaginatedItemsViewModel<Todo>(pageIndex, pageSize, totalItem, paged);
@@ -83,7 +83,7 @@ namespace School.API.Controllers
                         Succeeded = false
                     });
                 }
-                await todoRepository.AddTodo(studentId.Value, todo.Name, todo.Description);
+                await todoRepository.AddAsync(new Todo(studentId.Value, todo.Name, todo.Description));
                 return Ok(new ApiResult
                 {
                     Message = "Added successfully"

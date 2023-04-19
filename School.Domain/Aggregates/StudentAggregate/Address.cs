@@ -1,8 +1,6 @@
-﻿using System;
-
-namespace School.Domain.Entities.StudentAggregate
+﻿namespace School.Domain.Aggregates.StudentAggregate
 {
-    public class Address 
+    public class Address
     {
         public string City { get; private set; }
         public string Street { get; private set; }

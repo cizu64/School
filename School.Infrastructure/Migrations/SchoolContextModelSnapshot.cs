@@ -22,7 +22,7 @@ namespace School.Infrastructure.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("School.Domain.Entities.Course", b =>
+            modelBuilder.Entity("School.Domain.Aggregates.Course", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -47,7 +47,7 @@ namespace School.Infrastructure.Migrations
                     b.ToTable("Courses");
                 });
 
-            modelBuilder.Entity("School.Domain.Entities.Department", b =>
+            modelBuilder.Entity("School.Domain.Aggregates.Department", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -67,7 +67,7 @@ namespace School.Infrastructure.Migrations
                     b.ToTable("Departments");
                 });
 
-            modelBuilder.Entity("School.Domain.Entities.StudentAggregate.Student", b =>
+            modelBuilder.Entity("School.Domain.Aggregates.StudentAggregate.Student", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -98,7 +98,7 @@ namespace School.Infrastructure.Migrations
                     b.ToTable("Students");
                 });
 
-            modelBuilder.Entity("School.Domain.Entities.StudentAggregate.StudentCourse", b =>
+            modelBuilder.Entity("School.Domain.Aggregates.StudentAggregate.StudentCourse", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -119,7 +119,7 @@ namespace School.Infrastructure.Migrations
                     b.ToTable("StudentCourses");
                 });
 
-            modelBuilder.Entity("School.Domain.Entities.Todo", b =>
+            modelBuilder.Entity("School.Domain.Aggregates.Todo", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -154,9 +154,9 @@ namespace School.Infrastructure.Migrations
                     b.ToTable("Todos");
                 });
 
-            modelBuilder.Entity("School.Domain.Entities.Course", b =>
+            modelBuilder.Entity("School.Domain.Aggregates.Course", b =>
                 {
-                    b.HasOne("School.Domain.Entities.Department", "Department")
+                    b.HasOne("School.Domain.Aggregates.Department", "Department")
                         .WithMany()
                         .HasForeignKey("DepartmentId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -165,9 +165,9 @@ namespace School.Infrastructure.Migrations
                     b.Navigation("Department");
                 });
 
-            modelBuilder.Entity("School.Domain.Entities.StudentAggregate.Student", b =>
+            modelBuilder.Entity("School.Domain.Aggregates.StudentAggregate.Student", b =>
                 {
-                    b.OwnsOne("School.Domain.Entities.StudentAggregate.Address", "StudentAddress", b1 =>
+                    b.OwnsOne("School.Domain.Aggregates.StudentAggregate.Address", "StudentAddress", b1 =>
                         {
                             b1.Property<int>("StudentId")
                                 .HasColumnType("int");
@@ -204,16 +204,16 @@ namespace School.Infrastructure.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("School.Domain.Entities.StudentAggregate.StudentCourse", b =>
+            modelBuilder.Entity("School.Domain.Aggregates.StudentAggregate.StudentCourse", b =>
                 {
-                    b.HasOne("School.Domain.Entities.StudentAggregate.Student", null)
+                    b.HasOne("School.Domain.Aggregates.StudentAggregate.Student", null)
                         .WithMany("StudentCourses")
                         .HasForeignKey("StudentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("School.Domain.Entities.StudentAggregate.Student", b =>
+            modelBuilder.Entity("School.Domain.Aggregates.StudentAggregate.Student", b =>
                 {
                     b.Navigation("StudentCourses");
                 });

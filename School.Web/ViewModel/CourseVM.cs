@@ -1,7 +1,4 @@
 ﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using School.Web.Helpers;
-using School.Web.Services;
 
 namespace School.Web.ViewModel
 {

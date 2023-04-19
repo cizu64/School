@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-namespace School.Domain.Interfaces
+namespace School.Domain.SeedWork
 {
     public interface ITodoService
     {

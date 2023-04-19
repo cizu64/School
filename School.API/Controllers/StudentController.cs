@@ -1,5 +1,8 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using School.API.Application.CQRS.Commands;
+using School.API.Application.CQRS.Queries;
 using School.API.DTO;
 using School.API.Helpers;
 using School.API.Service;
@@ -21,8 +24,10 @@ namespace School.API.Controllers
         private readonly IConfiguration configuration;
         private readonly IGenericRepository<Course> courseRepository;
         private readonly IGenericRepository<Student> _studentRepository;
+        private readonly IStudentQueries _studentQueries;
+        private readonly IMediator _mediator;
         private readonly User user;
-        public StudentController(ILogger<StudentController> logger, IGenericRepository<Course> courseRepository, IGenericRepository<Student> studentRepository, IStudentService studentService, IRestClient client, IConfiguration configuration)
+        public StudentController(ILogger<StudentController> logger, IGenericRepository<Course> courseRepository, IGenericRepository<Student> studentRepository, IStudentService studentService, IRestClient client, IConfiguration configuration, IMediator mediator, IStudentQueries studentQueries)
         {
             _logger = logger;
             this.studentService = studentService;
@@ -30,6 +35,8 @@ namespace School.API.Controllers
             this.configuration = configuration;
             this.courseRepository = courseRepository;
             _studentRepository = studentRepository;
+            _mediator = mediator;
+            _studentQueries = studentQueries;
             user = new User(this.client, this.configuration);
         }
 
@@ -45,7 +52,7 @@ namespace School.API.Controllers
                     Succeeded = false
                 });
             }
-            var student = await _studentRepository.GetByIdAsync(studentId.Value, "StudentCourses");
+            var student = await _studentQueries.GetStudentById(studentId.Value, "StudentCourses"); //using cqrs query
             return Ok(new ApiResult
             {
                 Message = "Retrieved successfully",
@@ -117,7 +124,8 @@ namespace School.API.Controllers
                         Succeeded = false
                     });
                 }
-                await studentService.EnrollCourse(studentId.Value,course.CourseId);
+                //await studentService.EnrollCourse(studentId.Value,course.CourseId);
+                await _mediator.Send(new EnrollCourseCommand(studentId.Value, course.CourseId));
                 return Ok(new ApiResult
                 {
                     Message = "Course enrolled successfully",

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
+using School.API.Application.CQRS.Queries;
 using School.API.Application.DomainEventHandlers.CourseEnrolled;
 using School.API.Helpers;
 using School.Domain.DomainEvents;
@@ -54,6 +55,7 @@ builder.Services.AddDbContext<SchoolContext>(options =>
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 builder.Services.AddScoped<IStudentService, StudentService>();
 builder.Services.AddScoped<ITodoService, TodoService>();
+builder.Services.AddScoped<IStudentQueries, StudentQueries>();
 builder.Services.AddMediatR(m => { m.RegisterServicesFromAssemblies(Assembly.GetExecutingAssembly()); });
 builder.Services.AddScoped(typeof(INotificationHandler<StudentEnrolledForCourseDomainEvent>), typeof(CourseEnrolledDomainEventHandler));
 builder.Services.AddHttpClient();

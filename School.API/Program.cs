@@ -55,7 +55,6 @@ builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepositor
 builder.Services.AddScoped<IStudentService, StudentService>();
 builder.Services.AddScoped<ITodoService, TodoService>();
 builder.Services.AddMediatR(m => { m.RegisterServicesFromAssemblies(Assembly.GetExecutingAssembly()); });
-builder.Services.AddScoped<INotification, StudentEnrolledForCourseDomainEvent>();
 builder.Services.AddScoped(typeof(INotificationHandler<StudentEnrolledForCourseDomainEvent>), typeof(CourseEnrolledDomainEventHandler));
 builder.Services.AddHttpClient();
 builder.Services.AddScoped<IRestClient, RestClient>();

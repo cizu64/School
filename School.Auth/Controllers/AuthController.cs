@@ -1,10 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
-using RabbitMQ.Client;
 using School.Auth.Services;
 using School.Auth.ViewModel;
-using System.Security.Claims;
-using System.Text;
 
 namespace School.Auth.Controllers
 {

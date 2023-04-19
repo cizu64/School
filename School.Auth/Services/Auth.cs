@@ -1,7 +1,7 @@
 ﻿using System.Security.Claims;
 using School.Auth.Extensions;
-using School.Domain.Entities.StudentAggregate;
-using School.Domain.Interfaces;
+using School.Domain.Aggregates.StudentAggregate;
+using School.Domain.SeedWork;
 
 namespace School.Auth.Services
 {

@@ -1,11 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using School.Domain.Entities.StudentAggregate;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using School.Domain.Aggregates.StudentAggregate;
 
 namespace School.Infrastructure.EntityConfigurations
 {
@@ -13,6 +8,7 @@ namespace School.Infrastructure.EntityConfigurations
     {
         public void Configure(EntityTypeBuilder<StudentCourse> builder)
         {
+            builder.Ignore(sc => sc.DomainEvents);
             builder.Property(s => s.CourseId).IsRequired();
             builder.Property(s => s.StudentId).IsRequired();
         }

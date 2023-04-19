@@ -1,11 +1,16 @@
+using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
+using School.API.Application.DomainEventHandlers.CourseEnrolled;
 using School.API.Helpers;
-using School.Domain.Interfaces;
+using School.Domain.DomainEvents;
+using School.Domain.SeedWork;
 using School.Domain.Services;
 using School.Infrastructure;
 using School.Infrastructure.Repositories;
+using System.Reflection;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -47,9 +52,10 @@ builder.Services.AddDbContext<SchoolContext>(options =>
     });
 });
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
-builder.Services.AddScoped<ITodoRepository, TodoRepository>();
 builder.Services.AddScoped<IStudentService, StudentService>();
 builder.Services.AddScoped<ITodoService, TodoService>();
+builder.Services.AddMediatR(m => { m.RegisterServicesFromAssemblies(Assembly.GetExecutingAssembly()); });
+builder.Services.AddScoped(typeof(CourseEnrolledDomainEventHandler), typeof(INotificationHandler<StudentEnrolledForCourseDomainEvent>));
 builder.Services.AddHttpClient();
 builder.Services.AddScoped<IRestClient, RestClient>();
 

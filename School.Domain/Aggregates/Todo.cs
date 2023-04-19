@@ -1,11 +1,9 @@
-﻿using School.Domain.Interfaces;
+﻿using School.Domain.SeedWork;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace School.Domain.Entities
+namespace School.Domain.Aggregates
 {
-    public class Todo : BaseEntity, IAggregateRoot
+    public class Todo : Entity, IAggregateRoot
     {
         public int StudentId { get; private set; }
         public string Name { get; private set; }

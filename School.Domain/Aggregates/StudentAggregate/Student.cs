@@ -1,16 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using School.Domain.Interfaces;
-namespace School.Domain.Entities.StudentAggregate
+using School.Domain.DomainEvents;
+using School.Domain.SeedWork;
+
+namespace School.Domain.Aggregates.StudentAggregate
 {
-    public class Student : BaseEntity, IAggregateRoot
+    public class Student : Entity, IAggregateRoot
     {
         private Student()
         {
         }
-        public Student(string email, string password,string firstname,string lastname,int age,string gender, Address studentAddress, List<StudentCourse> studentCourses)
+        public Student(string email, string password, string firstname, string lastname, int age, string gender, Address studentAddress, List<StudentCourse> studentCourses)
         {
             Firstname = firstname;
             Lastname = lastname;
@@ -48,6 +48,10 @@ namespace School.Domain.Entities.StudentAggregate
                     CourseId = courseId,
                     StudentId = studentId
                 });
+
+                //add domain event
+                var CourseEnrolledDomainEvent = new StudentEnrolledForCourseDomainEvent(courseId, studentId);
+                AddDomainEvent(CourseEnrolledDomainEvent); //anytime a student enroll for course, a default todo should be created for task a student needs to do
                 return;
             }
             //update (do nothing)

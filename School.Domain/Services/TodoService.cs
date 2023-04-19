@@ -1,9 +1,6 @@
-﻿using School.Domain.Entities;
-using School.Domain.Entities.StudentAggregate;
-using School.Domain.Interfaces;
+﻿using School.Domain.Aggregates;
+using School.Domain.SeedWork;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace School.Domain.Services

@@ -25,4 +25,9 @@
     <ProjectReference Include="..\School.Infrastructure\School.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Application\CQRS\Queries\" />
+    <Folder Include="Application\CQRS\Commands\" />
+  </ItemGroup>
+
 </Project>

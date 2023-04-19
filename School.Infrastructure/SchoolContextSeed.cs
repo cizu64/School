@@ -1,11 +1,10 @@
 ﻿using Microsoft.Extensions.Logging;
-using School.Domain.Entities;
-using School.Domain.Entities.StudentAggregate;
+using School.Domain.Aggregates;
+using School.Domain.Aggregates.StudentAggregate;
 using School.Infrastructure.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace School.Infrastructure

@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc.Filters;
-using School.Web.Services;
+﻿using School.Web.Services;
 
 namespace School.Web.Helpers
 {

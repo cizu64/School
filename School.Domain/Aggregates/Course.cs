@@ -1,11 +1,8 @@
-﻿using School.Domain.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using School.Domain.SeedWork;
 
-namespace School.Domain.Entities
+namespace School.Domain.Aggregates
 {
-    public class Course : BaseEntity, IAggregateRoot
+    public class Course : Entity, IAggregateRoot
     {
         public int DepartmentId { get; set; }
         public string Name { get; set; }

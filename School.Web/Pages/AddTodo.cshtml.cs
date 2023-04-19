@@ -1,10 +1,8 @@
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using School.Web.DTO;
 using School.Web.Helpers;
 using School.Web.Services;
-using School.Web.ViewModel;
 
 namespace School.Web.Pages
 {

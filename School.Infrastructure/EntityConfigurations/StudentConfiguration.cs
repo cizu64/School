@@ -1,11 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using School.Domain.Entities.StudentAggregate;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using School.Domain.Aggregates.StudentAggregate;
 
 namespace School.Infrastructure.EntityConfigurations
 {
@@ -15,7 +10,8 @@ namespace School.Infrastructure.EntityConfigurations
         {
             var navigation = builder.Metadata.FindNavigation(nameof(Student.StudentCourses));
             navigation.SetPropertyAccessMode(PropertyAccessMode.Field);
-
+      
+            builder.Ignore(s => s.DomainEvents);
             builder.OwnsOne(s => s.StudentAddress, a =>
             {
                 a.WithOwner();

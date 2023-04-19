@@ -1,19 +1,20 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using School.Domain.Entities;
-using School.Domain.Interfaces;
+using School.Domain.SeedWork;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace School.Infrastructure.Repositories
 {
-    public class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity, IAggregateRoot
+    public class GenericRepository<T> : IGenericRepository<T> where T : Entity, IAggregateRoot
     {
         protected readonly SchoolContext _context;
         internal DbSet<T> _set;
+
+        public IUnitOfWork UnitOfWork => _context;
+
         public GenericRepository(SchoolContext context)
         {
             _context = context;
@@ -22,7 +23,14 @@ namespace School.Infrastructure.Repositories
         public async Task<T> AddAsync(T entity)
         {
              _set.Add(entity);
-            await _context.SaveChangesAsync();
+            await UnitOfWork.SaveChangesAsync();
+            return entity;
+        }
+
+        public async Task<T[]> AddRangeAsync(T[] entity)
+        {
+            await _set.AddRangeAsync(entity);
+            await UnitOfWork.SaveChangesAsync();
             return entity;
         }
 
@@ -34,7 +42,7 @@ namespace School.Infrastructure.Repositories
         public async Task DeleteAsync(T entity)
         {
             _set.Remove(entity);
-            await _context.SaveChangesAsync();
+            await UnitOfWork.SaveChangesAsync();
         }
 
         public async Task<T> Get(Expression<Func<T, bool>> predicate, params string[] includes)
@@ -83,7 +91,7 @@ namespace School.Infrastructure.Repositories
         public async Task UpdateAsync(T entity)
         {
             _context.Entry(entity).State = EntityState.Modified;
-            await _context.SaveChangesAsync();
+            await UnitOfWork.SaveChangesAsync();
         }
     }
 }

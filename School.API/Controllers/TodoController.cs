@@ -16,17 +16,15 @@ namespace School.API.Controllers
     public class TodoController : ControllerBase
     {
         private readonly ILogger<TodoController> _logger;
-        private readonly IGenericRepository<Todo> todoRepository;
-        private readonly ITodoService todoService;
+        private readonly IGenericRepository<Todo> _todoRepository;
         private readonly IRestClient client;
         private readonly IConfiguration configuration;
         private readonly User user;
 
-        public TodoController(ILogger<TodoController> logger, IGenericRepository<Todo> todoRepository, ITodoService todoService, IRestClient client, IConfiguration configuration)
+        public TodoController(ILogger<TodoController> logger, IGenericRepository<Todo> todoRepository, IRestClient client, IConfiguration configuration)
         {
             _logger = logger;
-            this.todoRepository = todoRepository;
-            this.todoService = todoService;
+            _todoRepository = todoRepository;
             this.client = client;
             this.configuration = configuration;
             user = new User(this.client, this.configuration);
@@ -48,7 +46,7 @@ namespace School.API.Controllers
                         Succeeded = false
                     });
                 }
-                var todos = await todoRepository.GetAll(t=>t.StudentId==studentId.Value);
+                var todos = await _todoRepository.GetAll(t=>t.StudentId==studentId.Value);
                 var paged = todos.Skip(pageSize * pageIndex).Take(pageSize);
                 int totalItem = todos.Count;
                 var model = new PaginatedItemsViewModel<Todo>(pageIndex, pageSize, totalItem, paged);
@@ -83,7 +81,8 @@ namespace School.API.Controllers
                         Succeeded = false
                     });
                 }
-                await todoRepository.AddAsync(new Todo(studentId.Value, todo.Name, todo.Description));
+                await _todoRepository.AddAsync(new Todo(studentId.Value, todo.Name, todo.Description));
+                await _todoRepository.UnitOfWork.SaveAsync();
                 return Ok(new ApiResult
                 {
                     Message = "Added successfully"
@@ -115,7 +114,12 @@ namespace School.API.Controllers
                     });
                 }
                 todo.StudentId = studentId.Value;
-                await todoService.CompleteTodo(todoId, todo.StudentId, todo.DateCompleted);
+
+                //use cqrs approach later
+                var target = await _todoRepository.Get(s => s.Id == todoId && s.StudentId == studentId);
+                target.CompleteTodo(todo.DateCompleted, target);
+                await _todoRepository.UpdateAsync(target);
+                await _todoRepository.UnitOfWork.SaveAsync();
                 return Ok(new ApiResult
                 {
                     Message = "todo completed successfully",

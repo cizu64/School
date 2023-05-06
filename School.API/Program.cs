@@ -1,14 +1,13 @@
+using Autofac;
+using Autofac.Extensions.DependencyInjection;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using School.API.Application.CQRS.Queries;
 using School.API.Application.DomainEventHandlers.CourseEnrolled;
 using School.API.Helpers;
-using School.Domain.DomainEvents;
 using School.Domain.SeedWork;
-using School.Domain.Services;
 using School.Infrastructure;
 using School.Infrastructure.Repositories;
 using System.Reflection;
@@ -53,11 +52,11 @@ builder.Services.AddDbContext<SchoolContext>(options =>
     });
 });
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
-builder.Services.AddScoped<IStudentService, StudentService>();
-builder.Services.AddScoped<ITodoService, TodoService>();
 builder.Services.AddScoped<IStudentQueries, StudentQueries>();
+
 builder.Services.AddMediatR(m => { m.RegisterServicesFromAssemblies(Assembly.GetExecutingAssembly()); });
-builder.Services.AddScoped(typeof(INotificationHandler<StudentEnrolledForCourseDomainEvent>), typeof(CourseEnrolledDomainEventHandler));
+
+
 builder.Services.AddHttpClient();
 builder.Services.AddScoped<IRestClient, RestClient>();
 
@@ -103,3 +102,14 @@ async Task SeedAsync(WebApplication host)
     }
 }
 
+//builder.Services.AddScoped(typeof(INotificationHandler<StudentEnrolledForCourseDomainEvent>), typeof(CourseEnrolledDomainEventHandler));
+
+//var container = new ContainerBuilder();
+//container.Populate(builder.Services);
+
+////autofac di
+//// Register the DomainEventHandler classes (they implement INotificationHandler<>) in assembly holding the Domain Events
+//container.RegisterAssemblyTypes(typeof(CourseEnrolledDomainEventHandler).GetTypeInfo().Assembly)
+//    .AsClosedTypesOf(typeof(INotificationHandler<>));
+
+////end

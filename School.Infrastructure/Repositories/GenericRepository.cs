@@ -22,15 +22,13 @@ namespace School.Infrastructure.Repositories
         }
         public async Task<T> AddAsync(T entity)
         {
-             _set.Add(entity);
-            await UnitOfWork.SaveChangesAsync();
+             await _set.AddAsync(entity);
             return entity;
         }
 
         public async Task<T[]> AddRangeAsync(T[] entity)
         {
             await _set.AddRangeAsync(entity);
-            await UnitOfWork.SaveChangesAsync();
             return entity;
         }
 
@@ -39,10 +37,10 @@ namespace School.Infrastructure.Repositories
             return await _set.Include(include).AnyAsync(predicate);
         }
 
-        public async Task DeleteAsync(T entity)
+        public Task DeleteAsync(T entity)
         {
-            _set.Remove(entity);
-            await UnitOfWork.SaveChangesAsync();
+             _set.Remove(entity);
+            return Task.CompletedTask;
         }
 
         public async Task<T> Get(Expression<Func<T, bool>> predicate, params string[] includes)
@@ -66,7 +64,7 @@ namespace School.Infrastructure.Repositories
             return await data.ToListAsync();
         }
 
-        public IEnumerable<T> Include(params string[] includes)
+        IEnumerable<T> Include(params string[] includes)
         {
             IEnumerable<T> query = null;
             foreach (var include in includes)
@@ -88,10 +86,10 @@ namespace School.Infrastructure.Repositories
             return data;
         }
 
-        public async Task UpdateAsync(T entity)
+        public Task UpdateAsync(T entity)
         {
             _context.Entry(entity).State = EntityState.Modified;
-            await UnitOfWork.SaveChangesAsync();
+            return Task.CompletedTask;
         }
     }
 }

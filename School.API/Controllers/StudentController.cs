@@ -19,7 +19,6 @@ namespace School.API.Controllers
     public class StudentController : ControllerBase
     {
         private readonly ILogger<StudentController> _logger;
-        private readonly IStudentService studentService;
         private readonly IRestClient client;
         private readonly IConfiguration configuration;
         private readonly IGenericRepository<Course> courseRepository;
@@ -27,10 +26,9 @@ namespace School.API.Controllers
         private readonly IStudentQueries _studentQueries;
         private readonly IMediator _mediator;
         private readonly User user;
-        public StudentController(ILogger<StudentController> logger, IGenericRepository<Course> courseRepository, IGenericRepository<Student> studentRepository, IStudentService studentService, IRestClient client, IConfiguration configuration, IMediator mediator, IStudentQueries studentQueries)
+        public StudentController(ILogger<StudentController> logger, IGenericRepository<Course> courseRepository, IGenericRepository<Student> studentRepository, IRestClient client, IConfiguration configuration, IMediator mediator, IStudentQueries studentQueries)
         {
             _logger = logger;
-            this.studentService = studentService;
             this.client = client;
             this.configuration = configuration;
             this.courseRepository = courseRepository;

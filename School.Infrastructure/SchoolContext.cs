@@ -29,11 +29,12 @@ namespace School.Infrastructure
         public DbSet<Department> Departments { get; set; }
         public DbSet<StudentCourse> StudentCourses { get; set; }
 
-        public async Task<bool> SaveEntitiesAsync(CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<bool> SaveAsync(CancellationToken cancellationToken = default(CancellationToken))
         {
 
             //dispatch domain events from mediatorExtension class to their respective event handlers
             await _mediator.DispatchDomainEventsAsync(this);
+
             await base.SaveChangesAsync(cancellationToken);
             return true;
         }

@@ -1,5 +1,4 @@
-﻿using School.Domain.Aggregates;
-using School.Domain.Aggregates.StudentAggregate;
+﻿using School.Domain.Aggregates.StudentAggregate;
 using School.Domain.SeedWork;
 
 namespace School.API.Application.CQRS.Queries

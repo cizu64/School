@@ -1,9 +1,7 @@
-using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using School.Auth.Services;
-using School.Domain.DomainEvents;
 using School.Domain.SeedWork;
 using School.Infrastructure;
 using School.Infrastructure.Repositories;

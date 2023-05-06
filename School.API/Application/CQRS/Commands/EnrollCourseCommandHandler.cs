@@ -1,14 +1,15 @@
 ﻿using MediatR;
+using School.Domain.Aggregates.StudentAggregate;
 using School.Domain.SeedWork;
 
 namespace School.API.Application.CQRS.Commands
 {
     public class EnrollCourseCommandHandler : IRequestHandler<EnrollCourseCommand, bool>
     {
-        private readonly IStudentService _studentService;
-        public EnrollCourseCommandHandler(IStudentService studentService)
+        private readonly IGenericRepository<Student> _studentRepository;
+        public EnrollCourseCommandHandler(IGenericRepository<Student> studentRepository)
         {
-            _studentService = studentService;
+            _studentRepository = studentRepository;
         }
         /// <summary>
         /// Handler that processes the command when student enroll for a course
@@ -18,8 +19,11 @@ namespace School.API.Application.CQRS.Commands
         /// <returns></returns>
         public async Task<bool> Handle(EnrollCourseCommand request, CancellationToken cancellationToken)
         {
-            await _studentService.EnrollCourse(request.StudentId, request.courseId);
-            return true; 
+            var student = await _studentRepository.GetByIdAsync(request.StudentId, "StudentCourses");
+            student.EnrollCourse(student.Id, request.courseId);
+            await _studentRepository.UpdateAsync(student);
+            await _studentRepository.UnitOfWork.SaveAsync();
+            return true;
         }
     }
 }

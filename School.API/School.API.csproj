@@ -25,4 +25,13 @@
     <ProjectReference Include="..\School.Infrastructure\School.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="Autofac">
+      <HintPath>..\..\..\..\.nuget\packages\autofac\6.1.0\lib\netstandard2.1\Autofac.dll</HintPath>
+    </Reference>
+    <Reference Include="Autofac.Extensions.DependencyInjection">
+      <HintPath>..\..\..\..\.nuget\packages\autofac.extensions.dependencyinjection\7.1.0\lib\netstandard2.1\Autofac.Extensions.DependencyInjection.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>

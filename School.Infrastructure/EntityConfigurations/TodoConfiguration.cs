@@ -10,8 +10,8 @@ namespace School.Infrastructure.EntityConfigurations
         {
             builder.Ignore(t => t.DomainEvents);
             builder.Property(t => t.StudentId).IsRequired();
-            builder.Property(t => t.Name).HasMaxLength(20).IsRequired();
-            builder.Property(t => t.Description).HasMaxLength(200).IsRequired();
+            builder.Property(t => t.Name).HasMaxLength(50).IsRequired();
+            builder.Property(t => t.Description).HasMaxLength(500).IsRequired();
         }
     }
 }

@@ -34,8 +34,9 @@ namespace School.Domain.Aggregates.StudentAggregate
         public string Gender { get; private set; }
         public Address StudentAddress { get; private set; }
 
+        //dont expose. Use readonlycollection and defined behaviors that can use collection methods, properties or extension methods
         private readonly List<StudentCourse> _studentCourses = new List<StudentCourse>();
-
+        
         public IReadOnlyCollection<StudentCourse> StudentCourses => _studentCourses.AsReadOnly();
 
         public void EnrollCourse(int studentId, int courseId)

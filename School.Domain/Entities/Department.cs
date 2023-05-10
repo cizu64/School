@@ -1,4 +1,4 @@
-﻿using School.Domain.SeedWork;
+﻿Susing School.Domain.SeedWork;
 
 namespace School.Domain.Aggregates
 {

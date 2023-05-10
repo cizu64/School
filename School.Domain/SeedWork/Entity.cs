@@ -8,6 +8,8 @@ namespace School.Domain.SeedWork
         public virtual int Id { get; protected set; }
 
         private List<INotification> _domainEvents;
+
+        //ignore this in the entity configuration
         public IReadOnlyCollection<INotification> DomainEvents => _domainEvents?.AsReadOnly();
 
         public void AddDomainEvent(INotification eventItem)

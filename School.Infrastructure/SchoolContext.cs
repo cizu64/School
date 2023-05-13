@@ -28,6 +28,7 @@ namespace School.Infrastructure
         public DbSet<Todo> Todos { get; set; }
         public DbSet<Department> Departments { get; set; }
         public DbSet<StudentCourse> StudentCourses { get; set; }
+        public DbSet<Inbox> Inbox { get; set; }
 
         public async Task<bool> SaveAsync(CancellationToken cancellationToken = default(CancellationToken))
         {

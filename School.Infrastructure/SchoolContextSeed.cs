@@ -20,8 +20,8 @@ namespace School.Infrastructure
                 {
                     schoolContext.Departments.AddRange(new List<Department>
                 {
-                    { new Department { Name = "Computer Science" } },
-                    { new Department { Name = "Law" } }
+                    { new Department("Computer Science" )},
+                    { new Department("Law" ) }
                 });
                     await schoolContext.SaveChangesAsync();
                 }
@@ -33,16 +33,16 @@ namespace School.Infrastructure
                         {
                             schoolContext.Courses.AddRange(new List<Course>
                             {
-                                { new Course { DepartmentId = dept.Id, Name = "Data analytics" } },
-                                { new Course { DepartmentId = dept.Id, Name = "Software engineering" } },
-                                { new Course { DepartmentId = dept.Id, Name = "Artificial intelligence" } },
+                                { new Course (dept.Id, "Data analytics" ) },
+                                { new Course (dept.Id, "Software engineering" ) },
+                                { new Course (dept.Id, "Artificial intelligence" ) },
                             });
                         }
                         else
                         {
                             schoolContext.Courses.AddRange(new List<Course>
                             {
-                                { new Course { DepartmentId = dept.Id, Name = "Corporate Law" } }
+                                { new Course (dept.Id,  "Corporate Law" ) }
                             });
                         }
                     }
@@ -50,14 +50,14 @@ namespace School.Infrastructure
                 }
                 if (!schoolContext.Students.Any())
                 {
-                    schoolContext.Students.Add(new Student("user@user.com","password".Hash(),"John", "Doe", 21, "Male", new Address("Berlin", "Berlin", "Berlin", "Germany"), new List<StudentCourse>()));
+                    schoolContext.Students.Add(new Student("user@user.com", "password".Hash(), "John", "Doe", 21, "Male", new Address("Berlin", "Berlin", "Berlin", "Germany"), new List<StudentCourse>()));
                     await schoolContext.SaveChangesAsync();
                 }
             }
             catch (Exception ex)
             {
                 var log = loggerFactory.CreateLogger<SchoolContextSeed>();
-                log.LogError(ex,ex.Message);
+                log.LogError(ex, ex.Message);
             }
         }
     }

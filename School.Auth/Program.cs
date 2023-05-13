@@ -49,7 +49,6 @@ builder.Services.AddDbContext<SchoolContext>(options =>
 });
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 builder.Services.AddScoped<IAuthenticate, Authenticate>();
-builder.Services.AddScoped<IAuthenticate, Authenticate>();
 builder.Services.AddScoped<IAuth, Auth>();
 
 var app = builder.Build();

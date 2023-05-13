@@ -135,5 +135,40 @@ namespace School.API.Controllers
                 });
             }
         }
+
+        [HttpDelete, Route("[action]/{todoId:int}")]
+        public async Task<IActionResult> DeleteTodo(int todoId)
+        {
+            try
+            {
+                var studentId = await user.GetUserIdFromToken(Request.Headers["Authorization"]);
+                if (studentId == null)
+                {
+                    return BadRequest(new ApiResult
+                    {
+                        Message = "User not found",
+                        Succeeded = false
+                    });
+                }
+
+                Todo todo = await _todoRepository.GetByIdAsync(todoId);
+                await _todoRepository.DeleteAsync(todo);
+                todo.DeleteTodo(studentId.Value, todo.Id); //entity behavior that adds the domain events
+                await _todoRepository.UnitOfWork.SaveAsync();
+                return Ok(new ApiResult
+                {
+                    Message = "todo deleted successfully",
+                });
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return BadRequest(new ApiResult
+                {
+                    Message = "An error occured",
+                    Succeeded = false
+                });
+            }
+        }
     }
 }

@@ -1,4 +1,5 @@
-﻿using School.Domain.SeedWork;
+﻿using School.Domain.DomainEvents;
+using School.Domain.SeedWork;
 using System;
 
 namespace School.Domain.Aggregates
@@ -26,6 +27,14 @@ namespace School.Domain.Aggregates
             target.IsCompleted = true;
             target.DateCompleted = dateCompleted;
             target.IsActive = false;
+        }
+        
+        public void DeleteTodo(int studentId, int todoId)
+        {
+            //create the domain event
+            //add domain event mothod
+            var deleteTodoEvent = new TodoDeletedDomainEvent(todoId, studentId);
+            AddDomainEvent(deleteTodoEvent);
         }
     }
 }

@@ -44,11 +44,7 @@ namespace School.Domain.Aggregates.StudentAggregate
             if (!StudentCourses.Any(s => s.StudentId == studentId && s.CourseId == courseId))
             {
                 //add to the collection
-                _studentCourses.Add(new StudentCourse
-                {
-                    CourseId = courseId,
-                    StudentId = studentId
-                });
+                _studentCourses.Add(new StudentCourse( courseId, studentId));
 
                 //add domain event
                 var CourseEnrolledDomainEvent = new StudentEnrolledForCourseDomainEvent(courseId, studentId);

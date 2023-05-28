@@ -151,7 +151,7 @@ namespace School.API.Controllers
                     });
                 }
 
-                Todo todo = await _todoRepository.GetByIdAsync(todoId);
+                Todo todo = await _todoRepository.Get(t => t.Id == todoId && t.StudentId == studentId);
                 await _todoRepository.DeleteAsync(todo);
                 todo.DeleteTodo(studentId.Value, todo.Id); //entity behavior that adds the domain events
                 await _todoRepository.UnitOfWork.SaveAsync();

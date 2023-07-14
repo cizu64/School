@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using School.Domain.Aggregates.StudentAggregate;
 using School.Domain.SeedWork;
+using School.Domain.Specifications;
 
 namespace School.API.Application.CQRS.Commands
 {
@@ -19,7 +20,9 @@ namespace School.API.Application.CQRS.Commands
         /// <returns></returns>
         public async Task<bool> Handle(EnrollCourseCommand request, CancellationToken cancellationToken)
         {
-            var student = await _studentRepository.GetByIdAsync(request.StudentId, "StudentCourses");
+            //var student = await _studentRepository.GetByIdAsync(request.StudentId, "StudentCourses");
+
+            var student = _studentRepository.Specify(new GetStudentByIdAndReturnCourses(request.StudentId)).FirstOrDefault();
             student.EnrollCourse(student.Id, request.courseId);
             await _studentRepository.UpdateAsync(student);
             await _studentRepository.UnitOfWork.SaveAsync();

@@ -10,6 +10,7 @@ using School.API.ViewModel;
 using School.Domain.Aggregates;
 using School.Domain.Aggregates.StudentAggregate;
 using School.Domain.SeedWork;
+using School.Domain.Specifications;
 using System.Net;
 
 namespace School.API.Controllers
@@ -50,7 +51,7 @@ namespace School.API.Controllers
                     Succeeded = false
                 });
             }
-            var student = await _studentQueries.GetStudentById(studentId.Value, "StudentCourses"); //using cqrs query
+            var student = await _studentQueries.GetStudentById(studentId.Value); //using cqrs query
             return Ok(new ApiResult
             {
                 Message = "Retrieved successfully",
@@ -73,9 +74,11 @@ namespace School.API.Controllers
 
         public async Task<IActionResult> GetCourses(int pageSize = 10, int pageIndex = 0)
         {
-            var courses = await courseRepository.GetAll(c => c.IsActive, "Department");
+            //var courses = await courseRepository.GetAll(c => c.IsActive, "Department");
+            var courses = courseRepository.Specify(new GetActiveCourseAndDepartment());
+
             var pagedCourses = courses.Skip(pageSize * pageIndex).Take(pageSize);
-            int totalItem = courses.Count;
+            int totalItem = courses.Count();
             var model = new PaginatedItemsViewModel<Course>(pageIndex, pageSize, totalItem, pagedCourses);
             return Ok(new ApiResult
             {

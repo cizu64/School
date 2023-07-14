@@ -1,5 +1,6 @@
 ﻿using School.Domain.Aggregates.StudentAggregate;
 using School.Domain.SeedWork;
+using School.Domain.Specifications;
 
 namespace School.API.Application.CQRS.Queries
 {
@@ -12,16 +13,17 @@ namespace School.API.Application.CQRS.Queries
             _studentRepository = studentRepository;
         }
 
-        public async Task<Student> GetStudentById(int studentId, params string[] includes)
+        public async Task<Student> GetStudentById(int studentId)
         {
-            var student = await _studentRepository.GetByIdAsync(studentId, includes);
+            var student = await _studentRepository.GetByIdAsync(studentId);
            return student;
         }
 
         //includes can be moved to specification by using the specifaction pattern
-        public async Task<IReadOnlyCollection<StudentCourse>> GetstudentCourses(int studentId, params string[] includes)
+        public async Task<IReadOnlyCollection<StudentCourse>> GetstudentCourses(int studentId)
         {
-            var student = await _studentRepository.GetByIdAsync(studentId, includes);
+            //var student = await _studentRepository.GetByIdAsync(studentId, includes);
+            var student = _studentRepository.Specify(new GetStudentByIdAndReturnCourses(studentId)).FirstOrDefault();
             return student.StudentCourses;
         }
     }

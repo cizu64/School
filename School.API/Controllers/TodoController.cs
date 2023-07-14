@@ -37,23 +37,23 @@ namespace School.API.Controllers
         {
             try
             {
-                var studentId = await user.GetUserIdFromToken(Request.Headers["Authorization"]);
-                if (studentId == null)
-                {
-                    return BadRequest(new ApiResult
-                    {
-                        Message = "User not found",
-                        Succeeded = false
-                    });
-                }
-                var todos = await _todoRepository.GetAll(t=>t.StudentId==studentId.Value);
-                var paged = todos.Skip(pageSize * pageIndex).Take(pageSize);
-                int totalItem = todos.Count;
-                var model = new PaginatedItemsViewModel<Todo>(pageIndex, pageSize, totalItem, paged);
+                //var studentId = await user.GetUserIdFromToken(Request.Headers["Authorization"]);
+                //if (studentId == null)
+                //{
+                //    return BadRequest(new ApiResult
+                //    {
+                //        Message = "User not found",
+                //        Succeeded = false
+                //    });
+                //}
+                ////var todos = await _todoRepository.GetAll(t=>t.StudentId==studentId.Value);
+                //var paged = todos.Skip(pageSize * pageIndex).Take(pageSize);
+                //int totalItem = todos.Count;
+                //var model = new PaginatedItemsViewModel<Todo>(pageIndex, pageSize, totalItem, paged);
                 return Ok(new ApiResult
                 {
                     Message = "Retrieved successfully",
-                    Result = model
+                    //Result = model
                 });
             }
             catch (Exception ex)

@@ -31,6 +31,15 @@ namespace School.Infrastructure.Repositories
             .Where(spec.Criteria)
             .AsEnumerable();
         }
+        public IEnumerable<T> SpecifyWithPagination(ISpecification<T> spec, int pageSize = 10, int pageIndex = 0)
+        {
+            var includes = spec.Includes.Aggregate(_context.Set<T>().AsQueryable(),
+ (current, include) => current.Include(include));
+
+            return includes
+            .Where(spec.Criteria).Skip(pageSize * pageIndex).Take(pageSize)
+            .AsEnumerable();
+        }
 
         //specify with pagination goes here
 
@@ -39,7 +48,7 @@ namespace School.Infrastructure.Repositories
              await _set.AddAsync(entity);
             return entity;
         }
-
+        
         public async Task<T[]> AddRangeAsync(T[] entity)
         {
             await _set.AddRangeAsync(entity);

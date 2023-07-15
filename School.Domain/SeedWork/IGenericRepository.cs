@@ -13,6 +13,7 @@ namespace School.Domain.SeedWork
         Task<T[]> AddRangeAsync(T[] entity);
         Task DeleteAsync(T entity);
         IEnumerable<T> Specify(ISpecification<T> spec);
+        IEnumerable<T> SpecifyWithPagination(ISpecification<T> spec, int pageSize = 10, int pageIndex = 0);
 
         //Task<T> GetByIdAsync(int Id, params string[] includes);
         //Task<T> GetByIdAsync(int Id, params string[] includes);

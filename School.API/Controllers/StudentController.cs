@@ -75,11 +75,12 @@ namespace School.API.Controllers
         public async Task<IActionResult> GetCourses(int pageSize = 10, int pageIndex = 0)
         {
             //var courses = await courseRepository.GetAll(c => c.IsActive, "Department");
-            var courses = courseRepository.Specify(new GetActiveCourseAndDepartment());
+            //var courses = courseRepository.Specify(new GetActiveCourseAndDepartment());
+            var courses = courseRepository.SpecifyWithPagination(new GetActiveCourseAndDepartment(), pageSize, pageIndex);
+           
 
-            var pagedCourses = courses.Skip(pageSize * pageIndex).Take(pageSize);
             int totalItem = courses.Count();
-            var model = new PaginatedItemsViewModel<Course>(pageIndex, pageSize, totalItem, pagedCourses);
+            var model = new PaginatedItemsViewModel<Course>(pageIndex, pageSize, totalItem, courses);
             return Ok(new ApiResult
             {
                 Message = "Retrieved successfully",

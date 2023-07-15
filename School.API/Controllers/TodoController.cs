@@ -6,6 +6,8 @@ using School.API.Service;
 using School.API.ViewModel;
 using School.Domain.Aggregates;
 using School.Domain.SeedWork;
+using School.Domain.Specifications;
+using System.Linq;
 using System.Net;
 
 namespace School.API.Controllers
@@ -37,7 +39,7 @@ namespace School.API.Controllers
         {
             try
             {
-                //var studentId = await user.GetUserIdFromToken(Request.Headers["Authorization"]);
+                var studentId = await user.GetUserIdFromToken(Request.Headers["Authorization"]);
                 //if (studentId == null)
                 //{
                 //    return BadRequest(new ApiResult
@@ -50,10 +52,14 @@ namespace School.API.Controllers
                 //var paged = todos.Skip(pageSize * pageIndex).Take(pageSize);
                 //int totalItem = todos.Count;
                 //var model = new PaginatedItemsViewModel<Todo>(pageIndex, pageSize, totalItem, paged);
+
+                var todos = _todoRepository.SpecifyWithPagination(new GetStudentTodoByStudentId(studentId.Value), pageSize, pageIndex);
+                int totalItem = todos.Count();
+                var model = new PaginatedItemsViewModel<Todo>(pageIndex, pageSize, totalItem, todos);
                 return Ok(new ApiResult
                 {
                     Message = "Retrieved successfully",
-                    //Result = model
+                    Result = model
                 });
             }
             catch (Exception ex)

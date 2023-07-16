@@ -8,6 +8,7 @@ using School.API.Application.CQRS.Queries;
 using School.API.Application.DomainEventHandlers.CourseEnrolled;
 using School.API.Helpers;
 using School.Domain.SeedWork;
+using School.Domain.Specifications;
 using School.Infrastructure;
 using School.Infrastructure.Repositories;
 using System.Reflection;
@@ -53,7 +54,6 @@ builder.Services.AddDbContext<SchoolContext>(options =>
 });
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 builder.Services.AddScoped<IStudentQueries, StudentQueries>();
-
 builder.Services.AddMediatR(m => { m.RegisterServicesFromAssemblies(Assembly.GetExecutingAssembly()); });
 
 

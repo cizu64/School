@@ -15,7 +15,8 @@ namespace School.API.Application.CQRS.Queries
 
         public async Task<Student> GetStudentById(int studentId)
         {
-            var student = await _studentRepository.GetByIdAsync(studentId);
+            //var student = await _studentRepository.GetByIdAsync(studentId);
+            var student = _studentRepository.Specify(new GetStudentByIdAndReturnCourses(studentId)).FirstOrDefault();
            return student;
         }
 

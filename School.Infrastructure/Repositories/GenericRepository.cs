@@ -45,7 +45,7 @@ namespace School.Infrastructure.Repositories
 
         public async Task<T> AddAsync(T entity)
         {
-             await _set.AddAsync(entity);
+            await _set.AddAsync(entity);
             return entity;
         }
         

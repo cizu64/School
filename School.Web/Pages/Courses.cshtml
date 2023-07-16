@@ -1,0 +1,60 @@
+﻿@page
+@using School.Web.ViewModel
+@model School.Web.Pages.CoursesModel
+@{
+    ViewData["Title"] = "Courses";   
+}
+
+<p>Click on the Enroll button to enroll for a course </p>
+
+@{
+    var courses = Model.Course;
+    var sc = (StudentVM)ViewData["StudentCourse"];
+}
+
+
+<table class="table table-striped" id="courses">
+    <thead>
+        <tr>
+            <th scope="col">Course id</th>
+            <th scope="col">Name</th>
+            <th scope="col">Department</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var course in courses.result.data)
+        {
+            <tr>
+                <th scope="row">@course.id</th>
+                <td>@course.name</td>
+                <td>@course.department.name</td>
+                @if (sc.result.studentCourses.Any(s => s.courseId == course.id)) {
+                    <td><i>Already enrolled</i></td>
+                }else{
+                   <td><a href="#" class="btn btn-primary" onclick="Enroll(this,@course.id)">Enroll</a></td>
+                }
+            </tr>        
+        }
+    </tbody>
+</table>
+
+<script>
+$(document).ready(function() {
+    $("#courses").DataTable();
+});
+var basePath = "@Model.ApiUrl";
+function Enroll(btn, courseId) {
+    $(btn).addClass("disabled")
+    $(btn).text(". . . . . .")
+    axios.put(basePath + "/api/v1/student/enroll", { "courseId": courseId }, { headers: { 'Authorization': "@ViewData["token"]" } })
+        .then(function(response) {
+            alertify.success(response.data.message)
+            $(btn).addClass("btn-success").removeClass("btn-primary").text("Done")
+        }).catch(function(error) {
+            alertify.error("Error enrolling course")
+            $(btn).removeClass("disabled")
+            $(btn).text("Enroll")
+        })
+}
+</script>

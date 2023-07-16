@@ -1,14 +1,21 @@
-﻿using School.Domain.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using School.Domain.SeedWork;
 
-namespace School.Domain.Entities
+namespace School.Domain.Aggregates
 {
-    public class Course : BaseEntity, IAggregateRoot
+    public class Course : Entity, IAggregateRoot
     {
-        public int DepartmentId { get; set; }
-        public string Name { get; set; }
-        public bool IsActive { get; set; }
+        public int DepartmentId { get; private set; }
+
+        public string Name { get; private set; }
+        public Department Department { get; private set; }
+        public bool IsActive { get; private set; } = true;
+
+
+        public Course(int departmentId, string name, bool isActive=true)
+        {
+            DepartmentId = departmentId;
+            Name = name;
+            IsActive = isActive;
+        }
     }
 }

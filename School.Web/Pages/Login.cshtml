@@ -1,0 +1,33 @@
+﻿@page
+@model School.Web.Pages.LoginModel
+@{
+}
+@{
+    ViewData["Title"] = "Login";
+}
+
+<div class="col-9">
+    <p class="lead">Login to your student account </p>
+    <form method="post">
+        <div class="row mt-4">
+            <input type="email" class="form-control" placeholder="Email address" name="Email" />
+            <small class="">@Html.ValidationMessage("Email",htmlAttributes:new{@class = "bg-danger text-white lead"})</small>
+        </div>
+
+        <div class="row mt-4">
+            <input type="password" class="form-control" placeholder="Password" name="Password"/>
+            <small class="">@Html.ValidationMessage("Password",htmlAttributes:new{@class = "bg-danger text-white lead"})</small>
+        </div>
+
+        <div class="row mt-4">
+            <input type="submit" value="Login" class="btn btn-lg btn-success" />
+        </div>
+        <div class="row mt-2">
+            @if (!string.IsNullOrEmpty(Model.ErrMsg))
+            {
+                <small class="text-dark lead alert alert-danger">@Model.ErrMsg</small>
+            }
+           
+        </div>
+    </form>
+</div>

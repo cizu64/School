@@ -1,13 +1,16 @@
-﻿using School.Domain.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using School.Domain.SeedWork;
 
-namespace School.Domain.Entities.StudentAggregate
+namespace School.Domain.Aggregates.StudentAggregate
 {
-    public class StudentCourse : BaseEntity
+    public class StudentCourse : Entity
     {
-        public int StudentId { get; set; }
-        public int CourseId { get; set; }
+        public int StudentId { get; private set; }
+        public int CourseId { get; private set; }
+
+        public StudentCourse(int courseId, int studentId)
+        {
+            CourseId = courseId;
+            StudentId = studentId;
+        }
     }
 }
